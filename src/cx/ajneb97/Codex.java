@@ -1,11 +1,7 @@
 package cx.ajneb97;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -93,7 +89,6 @@ public class Codex extends JavaPlugin {
 
 	   Bukkit.getConsoleSender().sendMessage(nombrePlugin+ChatColor.YELLOW + "Has been enabled! " + ChatColor.WHITE + "Version: " + version);
 	   Bukkit.getConsoleSender().sendMessage(nombrePlugin+ChatColor.YELLOW + "Thanks for using my plugin!  " + ChatColor.WHITE + "~Ajneb97");
-	   updateChecker();
 	}
 	  
 	public void onDisable(){
@@ -225,24 +220,4 @@ public class Codex extends JavaPlugin {
 			  e.printStackTrace();
 		  }
 	}
-	
-	public void updateChecker(){
-		  try {
-			  HttpURLConnection con = (HttpURLConnection) new URL(
-	                  "https://api.spigotmc.org/legacy/update.php?resource=90371").openConnection();
-	          int timed_out = 1250;
-	          con.setConnectTimeout(timed_out);
-	          con.setReadTimeout(timed_out);
-	          latestversion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
-	          if (latestversion.length() <= 7) {
-	        	  if(!version.equals(latestversion)){
-	        		  Bukkit.getConsoleSender().sendMessage(ChatColor.RED +"There is a new version available. "+ChatColor.YELLOW+
-	        				  "("+ChatColor.GRAY+latestversion+ChatColor.YELLOW+")");
-	        		  Bukkit.getConsoleSender().sendMessage(ChatColor.RED+"You can download it at: "+ChatColor.WHITE+"https://www.spigotmc.org/resources/90371/");  
-	        	  }      	  
-	          }
-	      } catch (Exception ex) {
-	    	  Bukkit.getConsoleSender().sendMessage(nombrePlugin + ChatColor.RED +"Error while checking update.");
-	      }
-	  }
 }
